@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>メニュー - SYNC</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#00ff88',secondary:'#ff0080'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body { font-family: 'Inter', sans-serif; }
+.menu-card {
+transition: all 0.3s ease;
+}
+.menu-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 30px rgba(0, 255, 136, 0.15);
+}
+.category-tab {
+transition: all 0.2s ease;
+}
+.category-tab.active {
+background-color: #00ff88;
+color: #1f2937;
+}
+.section-tab {
+transition: all 0.2s ease;
+}
+.section-tab.active {
+background-color: #00ff88;
+color: #1f2937;
+}
+.menu-item-image {
+transition: all 0.3s ease;
+}
+.menu-card:hover .menu-item-image {
+transform: scale(1.05);
+}
+</style>
+</head>
+<body class="bg-gray-900 text-white">
+<header class="fixed top-0 w-full z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
+<nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
+<div class="font-['Pacifico'] text-2xl text-primary">SYNC</div>
+<div class="hidden md:flex items-center space-x-8">
+<a href="index.html" data-readdy="true" class="text-gray-300 hover:text-primary transition-colors">Home</a>
+<a href="schedule.html" class="text-gray-300 hover:text-primary transition-colors">Schedule</a>
+<a href="menu.html" class="text-primary font-semibold">Menu</a>
+<a href="access.html" data-readdy="true" class="text-gray-300 hover:text-primary transition-colors">Access</a>
+<a href="contact.html" class="text-gray-300 hover:text-primary transition-colors">Contact</a>
+</div>
+<button class="md:hidden w-8 h-8 flex items-center justify-center" id="mobile-menu-btn">
+<i class="ri-menu-line text-xl"></i>
+</button>
+</nav>
+<div class="md:hidden hidden bg-gray-800 border-t border-gray-700" id="mobile-menu">
+<div class="px-6 py-4 space-y-4">
+<a href="index.html" data-readdy="true" class="block text-gray-300 hover:text-primary transition-colors">Home</a>
+<a href="schedule.html" class="block text-gray-300 hover:text-primary transition-colors">Schedule</a>
+<a href="menu.html" class="block text-primary font-semibold">Menu</a>
+<a href="access.html" class="block text-gray-300 hover:text-primary transition-colors">Access</a>
+<a href="contact.html" class="block text-gray-300 hover:text-primary transition-colors">Contact</a>
+</div>
+</div>
+</header>
+<main class="pt-20 min-h-screen">
+<section class="py-16 px-6 bg-gray-800">
+<div class="max-w-7xl mx-auto text-center">
+<h1 class="text-5xl font-bold mb-6">MENU</h1>
+<p class="text-xl text-gray-300 max-w-3xl mx-auto">創作カクテルと厳選されたフィンガーフードで、あなたの夜を特別なものに。実験的な味わいとスタイリッシュなプレゼンテーションをお楽しみください。</p>
+</div>
+</section>
+<section class="py-12 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="flex justify-center mb-8">
+<div class="bg-gray-800 p-1 rounded-xl flex">
+<button class="section-tab px-8 py-3 !rounded-button font-semibold whitespace-nowrap active" data-section="drinks">ドリンク</button>
+<button class="section-tab px-8 py-3 !rounded-button font-semibold whitespace-nowrap" data-section="food">フード</button>
+</div>
+</div>
+<div id="drinks-section" class="section-content">
+<div class="mb-8">
+<div class="flex justify-center">
+<div class="bg-gray-800 p-1 rounded-lg flex flex-wrap gap-1">
+<button class="category-tab px-4 py-2 !rounded-button font-medium whitespace-nowrap active" data-category="cocktails">カクテル</button>
+<button class="category-tab px-4 py-2 !rounded-button font-medium whitespace-nowrap" data-category="beer">ビール</button>
+<button class="category-tab px-4 py-2 !rounded-button font-medium whitespace-nowrap" data-category="wine">ワイン</button>
+<button class="category-tab px-4 py-2 !rounded-button font-medium whitespace-nowrap" data-category="soft">ソフトドリンク</button>
+</div>
+</div>
+</div>
+<div id="cocktails" class="category-content">
+<h2 class="text-3xl font-bold mb-8 text-center text-primary">シグネチャーカクテル</h2>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="menu-card bg-gray-800 rounded-xl overflow-hidden">
+<div class="h-48 bg-cover bg-center overflow-hidden">
+<div class="menu-item-image h-full w-full bg-cover bg-center" style="background-image: url('/images/Image03_01.png')"></div>
+</div>
+<div class="p-6">
+<div class="flex items-start justify-between mb-3">
+<div>
+<h3 class="text-xl font-bold mb-1">SYNC エレクトリック</h3>
+<p class="text-sm text-gray-400">SYNC Electric</p>
+</div>
+<div class="text-right">
+<div class="text-2xl font-bold text-primary">¥1,800</div>
+<div class="text-xs text-gray-400">15% vol</div>
+</div>
+</div>
+<p class="text-gray-300 text-sm mb-4">ジン、ライム、ブルーキュラソー、トニックウォーターに特製の光るアイスキューブを加えた、視覚的にも楽しめる創作カクテル。電気のような刺激的な味わい。</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+<span class="text-xs text-gray-400">人気 No.1</span>
+</div>
+</div>
+</div>
+<div class="menu-card bg-gray-800 rounded-xl overflow-hidden">
+<div class="h-48 bg-cover bg-center overflow-hidden">
+<div class="menu-item-image h-full w-full bg-cover bg-center" style="background-image: url('/images/Image03_02.png')"></div>
+</div>
+<div class="p-6">
+<div class="flex items-start justify-between mb-3">
+<div>
+<h3 class="text-xl font-bold mb-1">コズミック ドリーム</h3>
+<p class="text-sm text-gray-400">Cosmic Dream</p>
+</div>
+<div class="text-right">
+<div class="text-2xl font-bold text-primary">¥2,200</div>
+<div class="text-xs text-gray-400">18% vol</div>
+</div>
+</div>
+<p class="text-gray-300 text-sm mb-4">ウォッカ、バタフライピー、レモン、シャンパンで作る色変わりカクテル。ドライアイスの演出で宇宙空間のような幻想的な体験を。</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-secondary rounded-full"></div>
+<span class="text-xs text-gray-400">インスタ映え</span>
+</div>
+</div>
+</div>
+<div class="menu-card bg-gray-800 rounded-xl overflow-hidden">
+<div class="h-48 bg-cover bg-center overflow-hidden">
+<div class="menu-item-image h-full w-full bg-cover bg-center" style="background-image: url('/images/Image03_03.png')"></div>
+</div>
+<div class="p-6">
+<div class="flex items-start justify-between mb-3">
+<div>
+<h3 class="text-xl font-bold mb-1">ゴールデン フレーム</h3>
+<p class="text-sm text-gray-400">Golden Flame</p>
+</div>
+<div class="text-right">
+<div class="text-2xl font-bold text-primary">¥2,800</div>
+<div class="text-xs text-gray-400">20% vol</div>
+</div>
+</div>
+<p class="text-gray-300 text-sm mb-4">プレミアムウイスキー、ハニー、シナモン、食用金箔を使用したラグジュアリーカクテル。フレーミング演出で提供される特別な一杯。</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+<span class="text-xs text-gray-400">プレミアム</span>
+</div>
+</div>
+</div>
+<div class="menu-card bg-gray-800 rounded-xl overflow-hidden">
+<div class="h-48 bg-cover bg-center overflow-hidden">
+<div class="menu-item-image h-full w-full bg-cover bg-center" style="background-image: url('/images/Image03_04.png')"></div>
+</div>
+<div class="p-6">
+<div class="flex items-start justify-between mb-3">
+<div>
+<h3 class="text-xl font-bold mb-1">ミッドナイト ローズ</h3>
+<p class="text-sm text-gray-400">Midnight Rose</p>
+</div>
+<div class="text-right">
+<div class="text-2xl font-bold text-primary">¥1,600</div>
+<div class="text-xs text-gray-400">14% vol</div>
+</div>
+</div>
+<p class="text-gray-300 text-sm mb-4">ローズジン、クランベリー、ライチ、ローズウォーターで作る優雅なカクテル。バラの花びらとクリスタルで美しく装飾。</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-red-500 rounded-full"></div>
+<span class="text-xs text-gray-400">女性に人気</span>
+</div>
+</div>
+</div>
+<div class="menu-card bg-gray-800 rounded-xl overflow-hidden">
+<div class="h-48 bg-cover bg-center overflow-hidden">
+<div class="menu-item-image h-full w-full bg-cover bg-center" style="background-image: url('/images/Image03_05.png')"></div>
+</div>
+<div class="p-6">
+<div class="flex items-start justify-between mb-3">
+<div>
+<h3 class="text-xl font-bold mb-1">アイス ストーム</h3>
+<p class="text-sm text-gray-400">Ice Storm</p>
+</div>
+<div class="text-right">
+<div class="text-2xl font-bold text-primary">¥1,500</div>
+<div class="text-xs text-gray-400">12% vol</div>
+</div>
+</div>
+<p class="text-gray-300 text-sm mb-4">ホワイトラム、ミント、ライム、ソーダに巨大なアイススフィアを浮かべたクールなカクテル。爽やかで飲みやすい味わい。</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+<span class="text-xs text-gray-400">さっぱり系</span>
+</div>
+</div>
+</div>
+<div class="menu-card bg-gray-800 rounded-xl overflow-hidden">
+<div class="h-48 bg-cover bg-center overflow-hidden">
+<div class="menu-item-image h-full w-full bg-cover bg-center" style="background-image: url('/images/Image03_06.png')"></div>
+</div>
+<div class="p-6">
+<div class="flex items-start justify-between mb-3">
+<div>
+<h3 class="text-xl font-bold mb-1">ダーク マター</h3>
+<p class="text-sm text-gray-400">Dark Matter</p>
+</div>
+<div class="text-right">
+<div class="text-2xl font-bold text-primary">¥2,000</div>
+<div class="text-xs text-gray-400">16% vol</div>
+</div>
+</div>
+<p class="text-gray-300 text-sm mb-4">ブラックウォッカ、活性炭、ブラックベリー、バルサミコで作る神秘的な黒いカクテル。シルバーリムとスモーク演出付き。</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-gray-500 rounded-full"></div>
+<span class="text-xs text-gray-400">限定品</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-black py-16 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid md:grid-cols-4 gap-8 mb-12">
+<div>
+<div class="font-['Pacifico'] text-2xl text-primary mb-4">SYNC</div>
+<p class="text-gray-400 mb-6">多様なカルチャーがシンクロする実験的空間</p>
+<div class="flex gap-4">
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-instagram-line"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-twitter-x-line"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-facebook-line"></i>
+</div>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">ナビゲーション</h4>
+<div class="space-y-2">
+<a href="index.html" data-readdy="true" class="block text-gray-400 hover:text-primary transition-colors">Home</a>
+<a href="schedule.html" class="block text-gray-400 hover:text-primary transition-colors">Schedule</a>
+<a href="menu.html" class="block text-primary">Menu</a>
+<a href="access.html" data-readdy="true" class="block text-gray-400 hover:text-primary transition-colors">Access</a>
+<a href="contact.html" class="block text-gray-400 hover:text-primary transition-colors">Contact</a>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">営業時間</h4>
+<div class="space-y-2 text-gray-400">
+<p>金曜日: 21:00 - 05:00</p>
+<p>土曜日: 21:00 - 05:00</p>
+<p>日曜日: 20:00 - 02:00</p>
+<p class="text-sm mt-4">月〜木曜日は貸切営業</p>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">アクセス</h4>
+<div class="space-y-2 text-gray-400">
+<p>〒150-0043</p>
+<p>東京都渋谷区道玄坂 2-10-12</p>
+<p>新大宗ビル B1F</p>
+<p class="text-sm mt-4">JR 渋谷駅徒歩 5分</p>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+<p>&copy; 2024 SYNC. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script id="mobile-menu-script">
+document.addEventListener('DOMContentLoaded', function() {
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuBtn.addEventListener('click', function() {
+mobileMenu.classList.toggle('hidden');
+});
+});
+</script>
+<script id="section-tabs-script">
+document.addEventListener('DOMContentLoaded', function() {
+const sectionTabs = document.querySelectorAll('.section-tab');
+const sectionContents = document.querySelectorAll('.section-content');
+sectionTabs.forEach(tab => {
+tab.addEventListener('click', function() {
+sectionTabs.forEach(t => t.classList.remove('active'));
+this.classList.add('active');
+const targetSection = this.dataset.section;
+sectionContents.forEach(content => {
+if (content.id === targetSection + '-section') {
+content.classList.remove('hidden');
+} else {
+content.classList.add('hidden');
+}
+});
+const firstCategoryTab = document.querySelector(`#${targetSection}-section .category-tab`);
+if (firstCategoryTab) {
+const categoryTabs = document.querySelectorAll(`#${targetSection}-section .category-tab`);
+categoryTabs.forEach(t => t.classList.remove('active'));
+firstCategoryTab.classList.add('active');
+const firstCategory = firstCategoryTab.dataset.category;
+const categoryContents = document.querySelectorAll(`#${targetSection}-section .category-content`);
+categoryContents.forEach(content => {
+if (content.id === firstCategory) {
+content.classList.remove('hidden');
+} else {
+content.classList.add('hidden');
+}
+});
+}
+});
+});
+});
+</script>
+<script id="category-tabs-script">
+document.addEventListener('DOMContentLoaded', function() {
+const categoryTabs = document.querySelectorAll('.category-tab');
+categoryTabs.forEach(tab => {
+tab.addEventListener('click', function() {
+const parentSection = this.closest('.section-content');
+const siblingTabs = parentSection.querySelectorAll('.category-tab');
+const categoryContents = parentSection.querySelectorAll('.category-content');
+siblingTabs.forEach(t => t.classList.remove('active'));
+this.classList.add('active');
+const targetCategory = this.dataset.category;
+categoryContents.forEach(content => {
+if (content.id === targetCategory) {
+content.classList.remove('hidden');
+} else {
+content.classList.add('hidden');
+}
+});
+});
+});
+});
+</script>
+</body>
+</html>

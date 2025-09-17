@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アクセス - SYNC</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#00ff88',secondary:'#ff0080'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body { font-family: 'Inter', sans-serif; }
+.info-card {
+transition: all 0.3s ease;
+}
+.info-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 25px rgba(0, 255, 136, 0.1);
+}
+.route-step {
+transition: all 0.3s ease;
+}
+.route-step:hover {
+transform: translateX(4px);
+}
+.map-container {
+position: relative;
+overflow: hidden;
+border-radius: 12px;
+}
+</style>
+</head>
+<body class="bg-gray-900 text-white">
+<header class="fixed top-0 w-full z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
+<nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
+<div class="font-['Pacifico'] text-2xl text-primary">SYNC</div>
+<div class="hidden md:flex items-center space-x-8">
+<a href="index.html" data-readdy="true" class="text-gray-300 hover:text-primary transition-colors">Home</a>
+<a href="schedule.html" class="text-gray-300 hover:text-primary transition-colors">Schedule</a>
+<a href="menu.html" class="text-gray-300 hover:text-primary transition-colors">Menu</a>
+<a href="access.html" class="text-primary font-semibold">Access</a>
+<a href="contact.html" data-readdy="true" class="text-gray-300 hover:text-primary transition-colors">Contact</a>
+</div>
+<button class="md:hidden w-8 h-8 flex items-center justify-center" id="mobile-menu-btn">
+<i class="ri-menu-line text-xl"></i>
+</button>
+</nav>
+<div class="md:hidden hidden bg-gray-800 border-t border-gray-700" id="mobile-menu">
+<div class="px-6 py-4 space-y-4">
+<a href="index.html" data-readdy="true" class="block text-gray-300 hover:text-primary transition-colors">Home</a>
+<a href="schedule.html" class="block text-gray-300 hover:text-primary transition-colors">Schedule</a>
+<a href="menu.html" class="block text-gray-300 hover:text-primary transition-colors">Menu</a>
+<a href="access.html" class="block text-primary font-semibold">Access</a>
+<a href="contact.html" data-readdy="true" class="block text-gray-300 hover:text-primary transition-colors">Contact</a>
+</div>
+</div>
+</header>
+<main class="pt-20 min-h-screen">
+<section class="relative h-96 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/Image04_01.png')"></div>
+<div class="absolute inset-0 bg-gray-900/60"></div>
+<div class="relative h-full flex items-center justify-center text-center px-6">
+<div>
+<h1 class="text-5xl font-bold mb-4">ACCESS</h1>
+<p class="text-xl text-gray-200 max-w-2xl">渋谷の中心地、道玄坂に位置する SYNC へのアクセス情報をご案内いたします</p>
+</div>
+</div>
+</section>
+<section class="py-16 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid lg:grid-cols-3 gap-8 mb-16">
+<div class="info-card bg-gray-800 rounded-xl p-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/20 rounded-lg mb-4">
+<i class="ri-map-pin-line text-primary text-xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-3">住所</h3>
+<p class="text-gray-300 mb-2">〒150-0043</p>
+<p class="text-gray-300 mb-2">東京都渋谷区道玄坂 2-10-12</p>
+<p class="text-gray-300">新大宗ビル B1F</p>
+</div>
+<div class="info-card bg-gray-800 rounded-xl p-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/20 rounded-lg mb-4">
+<i class="ri-phone-line text-primary text-xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-3">電話番号</h3>
+<p class="text-gray-300 text-lg">03-5784-2891</p>
+<p class="text-sm text-gray-400 mt-2">営業時間内のお問い合わせ</p>
+</div>
+<div class="info-card bg-gray-800 rounded-xl p-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/20 rounded-lg mb-4">
+<i class="ri-time-line text-primary text-xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-3">営業時間</h3>
+<div class="space-y-1 text-gray-300">
+<p>金曜日: 21:00 - 05:00</p>
+<p>土曜日: 21:00 - 05:00</p>
+<p>日曜日: 20:00 - 02:00</p>
+<p class="text-sm text-gray-400 mt-2">月〜木曜日は貸切営業</p>
+</div>
+</div>
+</div>
+<div class="text-center mb-8">
+<a href="index.html" data-readdy="true" class="inline-flex items-center gap-2 bg-primary text-gray-900 px-6 py-3 !rounded-button font-semibold hover:bg-primary/90 transition-colors whitespace-nowrap">
+<i class="ri-arrow-left-line"></i>
+ホームページに戻る
+</a>
+</div>
+</div>
+</section>
+<section class="py-16 px-6 bg-gray-800">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-3xl font-bold text-center mb-12 text-primary">JR 渋谷駅からのルート</h2>
+<div class="grid lg:grid-cols-2 gap-12">
+<div class="space-y-6">
+<div class="route-step bg-gray-900 rounded-xl p-6 flex items-start gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-primary text-gray-900 rounded-full font-bold text-sm flex-shrink-0 mt-1">1</div>
+<div>
+<h4 class="font-semibold mb-2">JR 渋谷駅 ハチ公口を出る</h4>
+<p class="text-gray-300 text-sm">改札を出たら、ハチ公口方面へ向かってください。スクランブル交差点が見えてきます。</p>
+</div>
+</div>
+<div class="route-step bg-gray-900 rounded-xl p-6 flex items-start gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-primary text-gray-900 rounded-full font-bold text-sm flex-shrink-0 mt-1">2</div>
+<div>
+<h4 class="font-semibold mb-2">スクランブル交差点を渡る</h4>
+<p class="text-gray-300 text-sm">109 ビルの方向へスクランブル交差点を渡り、道玄坂方面に向かいます。</p>
+</div>
+</div>
+<div class="route-step bg-gray-900 rounded-xl p-6 flex items-start gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-primary text-gray-900 rounded-full font-bold text-sm flex-shrink-0 mt-1">3</div>
+<div>
+<h4 class="font-semibold mb-2">道玄坂を上る</h4>
+<p class="text-gray-300 text-sm">109 ビルを左手に見ながら道玄坂を約 3 分間上ります。左側にマクドナルドが見えます。</p>
+</div>
+</div>
+<div class="route-step bg-gray-900 rounded-xl p-6 flex items-start gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-primary text-gray-900 rounded-full font-bold text-sm flex-shrink-0 mt-1">4</div>
+<div>
+<h4 class="font-semibold mb-2">新大宗ビルに到着</h4>
+<p class="text-gray-300 text-sm">マクドナルドを過ぎて約 1 分、左手に新大宗ビルがあります。地下 1 階が SYNC です。</p>
+</div>
+</div>
+<div class="route-step bg-gray-900 rounded-xl p-6 flex items-start gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-primary text-gray-900 rounded-full font-bold text-sm flex-shrink-0 mt-1">5</div>
+<div>
+<h4 class="font-semibold mb-2">地下 1 階へ</h4>
+<p class="text-gray-300 text-sm">ビル入口から階段で地下 1 階へ降りてください。SYNC の看板が目印です。</p>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="bg-gray-900 rounded-xl overflow-hidden">
+<div class="h-48 bg-cover bg-center" style="background-image: url('/images/Image04_02.png')"></div>
+<div class="p-4">
+<h4 class="font-semibold mb-1">スクランブル交差点</h4>
+<p class="text-gray-400 text-sm">渋谷駅ハチ公口を出てすぐの有名な交差点</p>
+</div>
+</div>
+<div class="bg-gray-900 rounded-xl overflow-hidden">
+<div class="h-48 bg-cover bg-center" style="background-image: url('/images/Image04_03.png')"></div>
+<div class="p-4">
+<h4 class="font-semibold mb-1">道玄坂</h4>
+<p class="text-gray-400 text-sm">渋谷の代表的なエンターテイメント街</p>
+</div>
+</div>
+<div class="bg-gray-900 rounded-xl overflow-hidden">
+<div class="h-48 bg-cover bg-center" style="background-image: url('/images/Image04_04.png')"></div>
+<div class="p-4">
+<h4 class="font-semibold mb-1">新大宗ビル</h4>
+<p class="text-gray-400 text-sm">SYNC が入居するビル外観</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 px-6">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-3xl font-bold text-center mb-12 text-primary">地図・交通案内</h2>
+<div class="grid lg:grid-cols-2 gap-12">
+<div>
+<div class="map-container bg-gray-800 h-96 mb-6">
+<div class="h-full w-full bg-cover bg-center" style="background-image: url('/images/Image04_05.png')"></div>
+</div>
+<div class="flex gap-4">
+<a href="https://maps.google.com/maps?q=東京都渋谷区道玄坂2-10-12" target="_blank" class="flex-1 bg-primary text-gray-900 px-4 py-3 !rounded-button font-semibold text-center hover:bg-primary/90 transition-colors whitespace-nowrap">
+<i class="ri-map-line mr-2"></i>
+Google マップで見る
+</a>
+<a href="https://map.yahoo.co.jp/maps?q=東京都渋谷区道玄坂2-10-12" target="_blank" class="flex-1 bg-gray-800 text-white px-4 py-3 !rounded-button font-semibold text-center hover:bg-gray-700 transition-colors whitespace-nowrap">
+<i class="ri-map-2-line mr-2"></i>
+Yahoo! マップで見る
+</a>
+</div>
+</div>
+<div class="space-y-6">
+<div class="bg-gray-800 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 flex items-center justify-center bg-blue-500/20 rounded-lg">
+<i class="ri-train-line text-blue-400 text-lg"></i>
+</div>
+<h3 class="text-xl font-semibold">電車でお越しの場合</h3>
+</div>
+<div class="space-y-3 text-gray-300">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+<span>JR 山手線・埼京線・湘南新宿ライン「渋谷駅」徒歩 5 分</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+<span>東急東横線・田園都市線「渋谷駅」徒歩 5 分</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+<span>東京メトロ銀座線・半蔵門線・副都心線「渋谷駅」徒歩 5 分</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+<span>京王井の頭線「渋谷駅」徒歩 7 分</span>
+</div>
+</div>
+</div>
+<div class="bg-gray-800 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 flex items-center justify-center bg-green-500/20 rounded-lg">
+<i class="ri-car-line text-green-400 text-lg"></i>
+</div>
+<h3 class="text-xl font-semibold">お車でお越しの場合</h3>
+</div>
+<div class="space-y-3 text-gray-300">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+<span>首都高速 3 号渋谷線「渋谷出入口」より約 5 分</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+<span>首都高速中央環状線「富ヶ谷出入口」より約 8 分</span>
+</div>
+<p class="text-sm text-gray-400 mt-4">※専用駐車場はございません。近隣のコインパーキングをご利用ください。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 px-6 bg-gray-800">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-3xl font-bold text-center mb-12 text-primary">駐車場情報</h2>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-gray-900 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 flex items-center justify-center bg-yellow-500/20 rounded-lg">
+<i class="ri-parking-line text-yellow-400 text-lg"></i>
+</div>
+<h3 class="font-semibold">タイムズ道玄坂第 3</h3>
+</div>
+<div class="space-y-2 text-sm text-gray-300">
+<p><span class="text-gray-400">住所:</span> 渋谷区道玄坂 2-10</p>
+<p><span class="text-gray-400">距離:</span> 徒歩 1 分</p>
+<p><span class="text-gray-400">料金:</span> 30 分 400 円</p>
+<p><span class="text-gray-400">営業:</span> 24 時間</p>
+</div>
+</div>
+<div class="bg-gray-900 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 flex items-center justify-center bg-yellow-500/20 rounded-lg">
+<i class="ri-parking-line text-yellow-400 text-lg"></i>
+</div>
+<h3 class="font-semibold">リパーク渋谷道玄坂</h3>
+</div>
+<div class="space-y-2 text-sm text-gray-300">
+<p><span class="text-gray-400">住所:</span> 渋谷区道玄坂 2-8</p>
+<p><span class="text-gray-400">距離:</span> 徒歩 2 分</p>
+<p><span class="text-gray-400">料金:</span> 20 分 300 円</p>
+<p><span class="text-gray-400">営業:</span> 24 時間</p>
+</div>
+</div>
+<div class="bg-gray-900 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 flex items-center justify-center bg-yellow-500/20 rounded-lg">
+<i class="ri-parking-line text-yellow-400 text-lg"></i>
+</div>
+<h3 class="font-semibold">パークジャパン道玄坂</h3>
+</div>
+<div class="space-y-2 text-sm text-gray-300">
+<p><span class="text-gray-400">住所:</span> 渋谷区道玄坂 2-15</p>
+<p><span class="text-gray-400">距離:</span> 徒歩 3 分</p>
+<p><span class="text-gray-400">料金:</span> 30 分 350 円</p>
+<p><span class="text-gray-400">営業:</span> 24 時間</p>
+</div>
+</div>
+</div>
+<div class="mt-8 p-6 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 flex items-center justify-center flex-shrink-0 mt-1">
+<i class="ri-information-line text-yellow-400"></i>
+</div>
+<div>
+<h4 class="font-semibold text-yellow-400 mb-2">駐車場ご利用の注意事項</h4>
+<ul class="space-y-1 text-sm text-gray-300">
+<li>• 深夜料金が適用される場合があります</li>
+<li>• 満車の場合は他の駐車場をご利用ください</li>
+<li>• 料金は変更される可能性があります</li>
+<li>• 公共交通機関のご利用をおすすめします</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-black py-16 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid md:grid-cols-4 gap-8 mb-12">
+<div>
+<div class="font-['Pacifico'] text-2xl text-primary mb-4">SYNC</div>
+<p class="text-gray-400 mb-6">多様なカルチャーがシンクロする実験的空間</p>
+<div class="flex gap-4">
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-instagram-line"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-twitter-x-line"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-facebook-line"></i>
+</div>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">ナビゲーション</h4>
+<div class="space-y-2">
+<a href="index.html" data-readdy="true" class="block text-gray-400 hover:text-primary transition-colors">Home</a>
+<a href="schedule.html" class="block text-gray-400 hover:text-primary transition-colors">Schedule</a>
+<a href="menu.html" class="block text-gray-400 hover:text-primary transition-colors">Menu</a>
+<a href="access.html" class="block text-primary">Access</a>
+<a href="contact.html" data-readdy="true" class="block text-gray-400 hover:text-primary transition-colors">Contact</a>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">営業時間</h4>
+<div class="space-y-2 text-gray-400">
+<p>金曜日: 21:00 - 05:00</p>
+<p>土曜日: 21:00 - 05:00</p>
+<p>日曜日: 20:00 - 02:00</p>
+<p class="text-sm mt-4">月〜木曜日は貸切営業</p>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">アクセス</h4>
+<div class="space-y-2 text-gray-400">
+<p>〒150-0043</p>
+<p>東京都渋谷区道玄坂 2-10-12</p>
+<p>新大宗ビル B1F</p>
+<p class="text-sm mt-4">JR 渋谷駅徒歩 5 分</p>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+<p>&copy; 2024 SYNC. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script id="mobile-menu-script">
+document.addEventListener('DOMContentLoaded', function() {
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuBtn.addEventListener('click', function() {
+mobileMenu.classList.toggle('hidden');
+});
+});
+</script>
+</body>
+</html>

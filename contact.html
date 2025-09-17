@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ - SYNC</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#00ff88',secondary:'#ff0080'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body { font-family: 'Inter', sans-serif; }
+.contact-card {
+transition: all 0.3s ease;
+}
+.contact-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 25px rgba(0, 255, 136, 0.1);
+}
+.form-input {
+background: rgba(31, 41, 55, 0.8);
+border: 1px solid rgba(75, 85, 99, 0.5);
+transition: all 0.3s ease;
+}
+.form-input:focus {
+border-color: #00ff88;
+box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+outline: none;
+}
+.faq-item {
+border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+}
+.faq-content {
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.3s ease;
+}
+.faq-content.active {
+max-height: 200px;
+}
+.emergency-alert {
+background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05));
+border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.custom-checkbox {
+appearance: none;
+width: 1.25rem;
+height: 1.25rem;
+border: 2px solid #4b5563;
+border-radius: 4px;
+background: transparent;
+cursor: pointer;
+position: relative;
+transition: all 0.2s ease;
+}
+.custom-checkbox:checked {
+background: #00ff88;
+border-color: #00ff88;
+}
+.custom-checkbox:checked::after {
+content: '✓';
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+color: #1f2937;
+font-size: 0.75rem;
+font-weight: bold;
+}
+</style>
+</head>
+<body class="bg-gray-900 text-white">
+<header class="fixed top-0 w-full z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
+<nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
+<div class="font-['Pacifico'] text-2xl text-primary">SYNC</div>
+<div class="hidden md:flex items-center space-x-8">
+<a href="https://readdy.ai/home/ec5bd81d-b24b-4ce7-a571-821a3e1e3481/705b311e-acfb-489b-9065-c0e596d96186" data-readdy="true" class="text-gray-300 hover:text-primary transition-colors">Home</a>
+<a href="#" class="text-gray-300 hover:text-primary transition-colors">Schedule</a>
+<a href="#" class="text-gray-300 hover:text-primary transition-colors">Menu</a>
+<a href="#" class="text-gray-300 hover:text-primary transition-colors">Access</a>
+<a href="#" class="text-primary font-semibold">Contact</a>
+</div>
+<button class="md:hidden w-8 h-8 flex items-center justify-center" id="mobile-menu-btn">
+<i class="ri-menu-line text-xl"></i>
+</button>
+</nav>
+<div class="md:hidden hidden bg-gray-800 border-t border-gray-700" id="mobile-menu">
+<div class="px-6 py-4 space-y-4">
+<a href="https://readdy.ai/home/ec5bd81d-b24b-4ce7-a571-821a3e1e3481/705b311e-acfb-489b-9065-c0e596d96186" data-readdy="true" class="block text-gray-300 hover:text-primary transition-colors">Home</a>
+<a href="#" class="block text-gray-300 hover:text-primary transition-colors">Schedule</a>
+<a href="#" class="block text-gray-300 hover:text-primary transition-colors">Menu</a>
+<a href="#" class="block text-gray-300 hover:text-primary transition-colors">Access</a>
+<a href="#" class="block text-primary font-semibold">Contact</a>
+</div>
+</div>
+</header>
+
+<main class="pt-20 min-h-screen">
+<section class="relative h-96 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20nightclub%20interior%20with%20neon%20lighting%20and%20contemporary%20design%2C%20sophisticated%20club%20atmosphere%20with%20LED%20strips%20and%20ambient%20lighting%2C%20stylish%20entertainment%20venue%20with%20futuristic%20decor%2C%20dark%20background%20with%20colorful%20accents%2C%20professional%20nightlife%20space&width=1200&height=400&seq=contacthero1&orientation=landscape')"></div>
+<div class="absolute inset-0 bg-gray-900/70"></div>
+<div class="relative h-full flex items-center justify-center text-center px-6">
+<div>
+<h1 class="text-5xl font-bold mb-4">CONTACT</h1>
+<p class="text-xl text-gray-200 max-w-2xl">SYNC へのお問い合わせ、ご予約、ご相談はこちらから。お気軽にご連絡ください</p>
+</div>
+</div>
+</section>
+
+<section class="py-16 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid lg:grid-cols-3 gap-8 mb-16">
+<div class="contact-card bg-gray-800 rounded-xl p-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/20 rounded-lg mb-4">
+<i class="ri-phone-line text-primary text-xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-3">電話でのお問い合わせ</h3>
+<p class="text-2xl font-bold text-primary mb-2">03-5784-2891</p>
+<div class="text-sm text-gray-300 space-y-1">
+<p><span class="text-gray-400">営業時間内:</span></p>
+<p>金曜日 21:00 - 05:00</p>
+<p>土曜日 21:00 - 05:00</p>
+<p>日曜日 20:00 - 02:00</p>
+<p class="text-gray-400 mt-2">月〜木曜日は貸切営業のため、メールでお問い合わせください</p>
+</div>
+</div>
+<div class="contact-card bg-gray-800 rounded-xl p-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/20 rounded-lg mb-4">
+<i class="ri-mail-line text-primary text-xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-3">メールでのお問い合わせ</h3>
+<p class="text-lg text-primary mb-2">info@sync-shibuya.com</p>
+<div class="text-sm text-gray-300 space-y-1">
+<p><span class="text-gray-400">対応時間:</span> 24 時間受付</p>
+<p><span class="text-gray-400">返信:</span> 24 時間以内</p>
+<p class="text-gray-400 mt-2">イベント予約、貸切相談、メディア取材などお気軽にお問い合わせください</p>
+</div>
+</div>
+<div class="contact-card bg-gray-800 rounded-xl p-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/20 rounded-lg mb-4">
+<i class="ri-hashtag text-primary text-xl"></i>
+</div>
+<h3 class="text-xl font-bold mb-3">SNS でフォロー</h3>
+<div class="space-y-3">
+<a href="#" class="flex items-center gap-3 text-gray-300 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-instagram-fill text-lg"></i>
+</div>
+<span>@sync_shibuya</span>
+</a>
+<a href="#" class="flex items-center gap-3 text-gray-300 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-twitter-x-fill text-lg"></i>
+</div>
+<span>@sync_official</span>
+</a>
+<a href="#" class="flex items-center gap-3 text-gray-300 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-facebook-fill text-lg"></i>
+</div>
+<span>SYNC Shibuya</span>
+</a>
+</div>
+<p class="text-sm text-gray-400 mt-4">最新イベント情報やクラブの様子をチェック</p>
+</div>
+</div>
+
+<div class="text-center mb-8">
+<a href="https://readdy.ai/home/ec5bd81d-b24b-4ce7-a571-821a3e1e3481/705b311e-acfb-489b-9065-c0e596d96186" data-readdy="true" class="inline-flex items-center gap-2 bg-primary text-gray-900 px-6 py-3 !rounded-button font-semibold hover:bg-primary/90 transition-colors whitespace-nowrap">
+<i class="ri-arrow-left-line"></i>
+ホームページに戻る
+</a>
+</div>
+</div>
+</section>
+
+<section class="py-16 px-6 bg-gray-800">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-3xl font-bold text-center mb-12 text-primary">お問い合わせフォーム</h2>
+<form class="space-y-6" id="contact-form">
+<div class="grid md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-semibold mb-2">お名前 <span class="text-red-400">*</span></label>
+<input type="text" name="name" required class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400" placeholder="山田太郎">
+</div>
+<div>
+<label class="block text-sm font-semibold mb-2">メールアドレス <span class="text-red-400">*</span></label>
+<input type="email" name="email" required class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400" placeholder="example@email.com">
+</div>
+</div>
+<div>
+<label class="block text-sm font-semibold mb-2">件名</label>
+<select name="subject" class="form-input w-full px-4 py-3 rounded-lg text-white pr-8 appearance-none bg-gray-700">
+<option value="">お問い合わせ内容を選択してください</option>
+<option value="event">イベント・パーティーについて</option>
+<option value="reservation">テーブル予約について</option>
+<option value="private">貸切利用について</option>
+<option value="media">メディア取材について</option>
+<option value="other">その他</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-semibold mb-2">メッセージ <span class="text-red-400">*</span></label>
+<textarea name="message" required rows="6" class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-400 resize-none" placeholder="お問い合わせ内容をご記入ください"></textarea>
+</div>
+<div class="flex items-start gap-3">
+<input type="checkbox" id="privacy" name="privacy" required class="custom-checkbox mt-1">
+<label for="privacy" class="text-sm text-gray-300 cursor-pointer">
+<a href="#" class="text-primary hover:underline">プライバシーポリシー</a>に同意します <span class="text-red-400">*</span>
+</label>
+</div>
+<div class="text-center">
+<button type="submit" class="bg-primary text-gray-900 px-8 py-3 !rounded-button font-semibold hover:bg-primary/90 transition-colors whitespace-nowrap">
+<i class="ri-send-plane-line mr-2"></i>
+送信する
+</button>
+</div>
+</form>
+</div>
+</section>
+
+<section class="py-16 px-6">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-3xl font-bold text-center mb-12 text-primary">よくある質問</h2>
+<div class="space-y-4">
+<div class="faq-item bg-gray-800 rounded-xl overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-700 transition-colors">
+<span class="font-semibold">ドレスコードはありますか？</span>
+<i class="ri-arrow-down-s-line text-xl transition-transform"></i>
+</button>
+<div class="faq-content px-6 pb-4">
+<p class="text-gray-300">スマートカジュアル以上でお願いしています。サンダル、短パン、タンクトップでのご入場はお断りしております。ジャケット着用を推奨いたします。</p>
+</div>
+</div>
+<div class="faq-item bg-gray-800 rounded-xl overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-700 transition-colors">
+<span class="font-semibold">年齢制限はありますか？</span>
+<i class="ri-arrow-down-s-line text-xl transition-transform"></i>
+</button>
+<div class="faq-content px-6 pb-4">
+<p class="text-gray-300">20 歳以上の方のみご入場いただけます。入場時に身分証明書の確認をさせていただきますので、必ずお持ちください。</p>
+</div>
+</div>
+<div class="faq-item bg-gray-800 rounded-xl overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-700 transition-colors">
+<span class="font-semibold">テーブル予約は必要ですか？</span>
+<i class="ri-arrow-down-s-line text-xl transition-transform"></i>
+</button>
+<div class="faq-content px-6 pb-4">
+<p class="text-gray-300">週末は混雑が予想されるため、事前のテーブル予約をおすすめします。当日の空き状況によってはご案内できない場合がございます。</p>
+</div>
+</div>
+<div class="faq-item bg-gray-800 rounded-xl overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-700 transition-colors">
+<span class="font-semibold">貸切利用は可能ですか？</span>
+<i class="ri-arrow-down-s-line text-xl transition-transform"></i>
+</button>
+<div class="faq-content px-6 pb-4">
+<p class="text-gray-300">平日（月〜木曜日）は貸切営業を承っております。企業パーティー、プライベートイベントなど、詳細はお問い合わせください。</p>
+</div>
+</div>
+<div class="faq-item bg-gray-800 rounded-xl overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-700 transition-colors">
+<span class="font-semibold">再入場は可能ですか？</span>
+<i class="ri-arrow-down-s-line text-xl transition-transform"></i>
+</button>
+<div class="faq-content px-6 pb-4">
+<p class="text-gray-300">当日に限り再入場が可能です。退場時にスタッフにお声がけいただき、再入場用のスタンプを押させていただきます。</p>
+</div>
+</div>
+<div class="faq-item bg-gray-800 rounded-xl overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-700 transition-colors">
+<span class="font-semibold">クロークはありますか？</span>
+<i class="ri-arrow-down-s-line text-xl transition-transform"></i>
+</button>
+<div class="faq-content px-6 pb-4">
+<p class="text-gray-300">クロークサービスをご用意しております。料金は 1 点につき 500 円です。貴重品のお預かりはできませんのでご注意ください。</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="py-16 px-6 bg-gray-800">
+<div class="max-w-4xl mx-auto">
+<div class="emergency-alert rounded-xl p-6">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-red-500/20 rounded-lg flex-shrink-0">
+<i class="ri-alarm-warning-line text-red-400 text-xl"></i>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-bold text-red-400 mb-4">緊急連絡先</h3>
+<div class="grid md:grid-cols-2 gap-6">
+<div>
+<h4 class="font-semibold mb-2">営業時間外の緊急連絡</h4>
+<p class="text-lg font-bold text-red-400 mb-1">080-1234-5678</p>
+<p class="text-sm text-gray-300">対応時間: 24 時間</p>
+<p class="text-sm text-gray-400">※緊急時のみご利用ください</p>
+</div>
+<div>
+<h4 class="font-semibold mb-2">セキュリティ・安全管理</h4>
+<p class="text-lg font-bold text-red-400 mb-1">03-5784-2892</p>
+<p class="text-sm text-gray-300">対応時間: 営業時間中</p>
+<p class="text-sm text-gray-400">※事故・トラブル発生時</p>
+</div>
+</div>
+<div class="mt-6 p-4 bg-red-500/10 rounded-lg">
+<h5 class="font-semibold text-red-400 mb-2">緊急時の注意事項</h5>
+<ul class="text-sm text-gray-300 space-y-1">
+<li>• 生命に関わる緊急事態は迷わず 119 番通報してください</li>
+<li>• 犯罪に関わる事案は 110 番通報してください</li>
+<li>• 営業時間外の一般的なお問い合わせはメールをご利用ください</li>
+<li>• 緊急連絡先は真の緊急時のみご利用ください</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="bg-black py-16 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid md:grid-cols-4 gap-8 mb-12">
+<div>
+<div class="font-['Pacifico'] text-2xl text-primary mb-4">SYNC</div>
+<p class="text-gray-400 mb-6">多様なカルチャーがシンクロする実験的空間</p>
+<div class="flex gap-4">
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-instagram-line"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-twitter-x-line"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-facebook-line"></i>
+</div>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">ナビゲーション</h4>
+<div class="space-y-2">
+<a href="https://readdy.ai/home/ec5bd81d-b24b-4ce7-a571-821a3e1e3481/705b311e-acfb-489b-9065-c0e596d96186" data-readdy="true" class="block text-gray-400 hover:text-primary transition-colors">Home</a>
+<a href="#" class="block text-gray-400 hover:text-primary transition-colors">Schedule</a>
+<a href="#" class="block text-gray-400 hover:text-primary transition-colors">Menu</a>
+<a href="#" class="block text-gray-400 hover:text-primary transition-colors">Access</a>
+<a href="#" class="block text-primary">Contact</a>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">営業時間</h4>
+<div class="space-y-2 text-gray-400">
+<p>金曜日: 21:00 - 05:00</p>
+<p>土曜日: 21:00 - 05:00</p>
+<p>日曜日: 20:00 - 02:00</p>
+<p class="text-sm mt-4">月〜木曜日は貸切営業</p>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">アクセス</h4>
+<div class="space-y-2 text-gray-400">
+<p>〒150-0043</p>
+<p>東京都渋谷区道玄坂 2-10-12</p>
+<p>新大宗ビル B1F</p>
+<p class="text-sm mt-4">JR 渋谷駅徒歩 5 分</p>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+<p>&copy; 2024 SYNC. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+<script id="mobile-menu-script">
+document.addEventListener('DOMContentLoaded', function() {
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuBtn.addEventListener('click', function() {
+mobileMenu.classList.toggle('hidden');
+});
+});
+</script>
+
+<script id="faq-script">
+document.addEventListener('DOMContentLoaded', function() {
+const faqToggles = document.querySelectorAll('.faq-toggle');
+faqToggles.forEach(toggle => {
+toggle.addEventListener('click', function() {
+const content = this.nextElementSibling;
+const icon = this.querySelector('i');
+const isActive = content.classList.contains('active');
+document.querySelectorAll('.faq-content').forEach(item => {
+item.classList.remove('active');
+});
+document.querySelectorAll('.faq-toggle i').forEach(item => {
+item.style.transform = 'rotate(0deg)';
+});
+if (!isActive) {
+content.classList.add('active');
+icon.style.transform = 'rotate(180deg)';
+}
+});
+});
+});
+</script>
+
+<script id="contact-form-script">
+document.addEventListener('DOMContentLoaded', function() {
+const contactForm = document.getElementById('contact-form');
+contactForm.addEventListener('submit', function(e) {
+e.preventDefault();
+const formData = new FormData(this);
+const submitBtn = this.querySelector('button[type="submit"]');
+const originalText = submitBtn.innerHTML;
+submitBtn.innerHTML = '<i class="ri-loader-4-line mr-2 animate-spin"></i>送信中...';
+submitBtn.disabled = true;
+setTimeout(() => {
+submitBtn.innerHTML = '<i class="ri-check-line mr-2"></i>送信完了';
+submitBtn.classList.remove('bg-primary', 'hover:bg-primary/90');
+submitBtn.classList.add('bg-green-500', 'hover:bg-green-600');
+setTimeout(() => {
+submitBtn.innerHTML = originalText;
+submitBtn.disabled = false;
+submitBtn.classList.remove('bg-green-500', 'hover:bg-green-600');
+submitBtn.classList.add('bg-primary', 'hover:bg-primary/90');
+contactForm.reset();
+}, 2000);
+}, 1500);
+});
+});
+</script>
+</body>
+</html>

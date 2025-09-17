@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>イベントスケジュール - SYNC</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#00ff88',secondary:'#ff0080'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body { font-family: 'Inter', sans-serif; }
+.calendar-day {
+transition: all 0.2s ease;
+}
+.calendar-day:hover {
+background-color: rgba(0, 255, 136, 0.1);
+}
+.calendar-day.has-event {
+background-color: rgba(0, 255, 136, 0.2);
+border: 1px solid #00ff88;
+}
+.calendar-day.selected {
+background-color: #00ff88;
+color: #1f2937;
+}
+.event-card {
+transition: all 0.3s ease;
+}
+.event-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 10px 30px rgba(0, 255, 136, 0.15);
+}
+.filter-chip {
+transition: all 0.2s ease;
+}
+.filter-chip.active {
+background-color: #00ff88;
+color: #1f2937;
+}
+.tab-button {
+transition: all 0.2s ease;
+}
+.tab-button.active {
+background-color: #00ff88;
+color: #1f2937;
+}
+.booking-status.available {
+color: #00ff88;
+}
+.booking-status.limited {
+color: #fbbf24;
+}
+.booking-status.full {
+color: #ef4444;
+}
+</style>
+</head>
+<body class="bg-gray-900 text-white">
+<header class="fixed top-0 w-full z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
+<nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
+<div class="font-['Pacifico'] text-2xl text-primary">SYNC</div>
+<div class="hidden md:flex items-center space-x-8">
+<a href="index.html" data-readdy="true" class="text-gray-300 hover:text-primary transition-colors">Home</a>
+<a href="schedule.html" class="text-primary font-semibold">Schedule</a>
+<a href="menu.html" data-readdy="true" class="text-gray-300 hover:text-primary transition-colors">Menu</a>
+<a href="access.html" class="text-gray-300 hover:text-primary transition-colors">Access</a>
+<a href="contact.html" class="text-gray-300 hover:text-primary transition-colors">Contact</a>
+</div>
+<button class="md:hidden w-8 h-8 flex items-center justify-center" id="mobile-menu-btn">
+<i class="ri-menu-line text-xl"></i>
+</button>
+</nav>
+<div class="md:hidden hidden bg-gray-800 border-t border-gray-700" id="mobile-menu">
+<div class="px-6 py-4 space-y-4">
+<a href="index.html" data-readdy="true" class="block text-gray-300 hover:text-primary transition-colors">Home</a>
+<a href="schedule.html" class="block text-primary font-semibold">Schedule</a>
+<a href="menu.html" class="block text-gray-300 hover:text-primary transition-colors">Menu</a>
+<a href="access.html" class="block text-gray-300 hover:text-primary transition-colors">Access</a>
+<a href="contact.html" class="block text-gray-300 hover:text-primary transition-colors">Contact</a>
+</div>
+</div>
+</header>
+<main class="pt-20 min-h-screen">
+<section class="py-12 px-6 bg-gray-800">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-12">
+<h1 class="text-5xl font-bold mb-4">イベントスケジュール</h1>
+<p class="text-xl text-gray-300">多様なカルチャーが交差する実験的なイベントの数々をご覧ください</p>
+</div>
+</div>
+</section>
+<section class="py-12 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid lg:grid-cols-3 gap-8">
+<div class="lg:col-span-1">
+<div class="bg-gray-800 rounded-xl p-6 mb-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-semibold">2024年12月</h3>
+<div class="flex gap-2">
+<button id="prev-month" class="w-8 h-8 flex items-center justify-center bg-gray-700 rounded-lg hover:bg-primary hover:text-gray-900 transition-colors">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<button id="next-month" class="w-8 h-8 flex items-center justify-center bg-gray-700 rounded-lg hover:bg-primary hover:text-gray-900 transition-colors">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-1 mb-2">
+<div class="text-center text-sm text-gray-400 py-2">日</div>
+<div class="text-center text-sm text-gray-400 py-2">月</div>
+<div class="text-center text-sm text-gray-400 py-2">火</div>
+<div class="text-center text-sm text-gray-400 py-2">水</div>
+<div class="text-center text-sm text-gray-400 py-2">木</div>
+<div class="text-center text-sm text-gray-400 py-2">金</div>
+<div class="text-center text-sm text-gray-400 py-2">土</div>
+</div>
+<div id="calendar-grid" class="grid grid-cols-7 gap-1">
+</div>
+</div>
+<div class="bg-gray-800 rounded-xl p-6">
+<h3 class="text-lg font-semibold mb-4">カテゴリーフィルター</h3>
+<div class="flex flex-wrap gap-2">
+<button class="filter-chip px-3 py-1 text-sm bg-gray-700 rounded-full hover:bg-primary hover:text-gray-900" data-category="all">すべて</button>
+<button class="filter-chip px-3 py-1 text-sm bg-gray-700 rounded-full hover:bg-primary hover:text-gray-900" data-category="music">音楽</button>
+<button class="filter-chip px-3 py-1 text-sm bg-gray-700 rounded-full hover:bg-primary hover:text-gray-900" data-category="art">アート</button>
+<button class="filter-chip px-3 py-1 text-sm bg-gray-700 rounded-full hover:bg-primary hover:text-gray-900" data-category="fashion">ファッション</button>
+<button class="filter-chip px-3 py-1 text-sm bg-gray-700 rounded-full hover:bg-primary hover:text-gray-900" data-category="tech">テクノロジー</button>
+<button class="filter-chip px-3 py-1 text-sm bg-gray-700 rounded-full hover:bg-primary hover:text-gray-900" data-category="collaboration">コラボ</button>
+</div>
+</div>
+</div>
+<div class="lg:col-span-2">
+<div class="space-y-6" id="events-list">
+<div class="event-card bg-gray-800 rounded-xl overflow-hidden" data-category="music" data-date="2024-12-15">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 h-48 md:h-auto bg-cover bg-center" style="background-image: url('/images/Image02_01.png')"></div>
+<div class="md:w-2/3 p-6">
+<div class="flex items-start justify-between mb-4">
+<div>
+<div class="text-primary text-sm font-semibold mb-1">12月 15日 (金) 21:00 - 05:00</div>
+<h3 class="text-2xl font-bold mb-2">ELECTRONIC FUSION</h3>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-primary text-gray-900 rounded-full">音楽</span>
+<span class="px-2 py-1 text-xs bg-gray-700 rounded-full">¥3,500</span>
+</div>
+</div>
+<div class="text-right">
+<div class="booking-status available text-sm font-semibold mb-1">
+<i class="ri-checkbox-circle-line mr-1"></i>予約可能
+</div>
+<div class="text-xs text-gray-400">残り 45席</div>
+</div>
+</div>
+<p class="text-gray-300 mb-4">最先端のエレクトロニックミュージックと視覚アートが融合する実験的なナイト。国内外のトップアーティストが集結し、音と光の新たな体験をお届けします。</p>
+<div class="flex gap-3">
+<button class="bg-primary text-gray-900 px-6 py-2 !rounded-button font-semibold hover:bg-primary/90 transition-colors whitespace-nowrap">
+予約する
+</button>
+<button class="border border-primary text-primary px-6 py-2 !rounded-button font-semibold hover:bg-primary hover:text-gray-900 transition-colors whitespace-nowrap">
+詳細を見る
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="event-card bg-gray-800 rounded-xl overflow-hidden" data-category="fashion" data-date="2024-12-16">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 h-48 md:h-auto bg-cover bg-center" style="background-image: url('/images/Image02_02.png')"></div>
+<div class="md:w-2/3 p-6">
+<div class="flex items-start justify-between mb-4">
+<div>
+<div class="text-secondary text-sm font-semibold mb-1">12月 16日 (土) 20:00 - 03:00</div>
+<h3 class="text-2xl font-bold mb-2">FASHION NIGHT</h3>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-secondary text-white rounded-full">ファッション</span>
+<span class="px-2 py-1 text-xs bg-gray-700 rounded-full">¥4,000</span>
+</div>
+</div>
+<div class="text-right">
+<div class="booking-status limited text-sm font-semibold mb-1">
+<i class="ri-time-line mr-1"></i>残りわずか
+</div>
+<div class="text-xs text-gray-400">残り 8席</div>
+</div>
+</div>
+<p class="text-gray-300 mb-4">ファッションとクラブカルチャーが交差する特別な夜。新進デザイナーによるランウェイショーと限定アイテムの先行販売を実施します。</p>
+<div class="flex gap-3">
+<button class="bg-primary text-gray-900 px-6 py-2 !rounded-button font-semibold hover:bg-primary/90 transition-colors whitespace-nowrap">
+予約する
+</button>
+<button class="border border-primary text-primary px-6 py-2 !rounded-button font-semibold hover:bg-primary hover:text-gray-900 transition-colors whitespace-nowrap">
+詳細を見る
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="event-card bg-gray-800 rounded-xl overflow-hidden" data-category="tech" data-date="2024-12-17">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 h-48 md:h-auto bg-cover bg-center" style="background-image: url('/images/Image02_03.png')"></div>
+<div class="md:w-2/3 p-6">
+<div class="flex items-start justify-between mb-4">
+<div>
+<div class="text-primary text-sm font-semibold mb-1">12月 17日 (日) 18:00 - 02:00</div>
+<h3 class="text-2xl font-bold mb-2">TECH ART LAB</h3>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-blue-500 text-white rounded-full">テクノロジー</span>
+<span class="px-2 py-1 text-xs bg-gray-700 rounded-full">¥2,800</span>
+</div>
+</div>
+<div class="text-right">
+<div class="booking-status available text-sm font-semibold mb-1">
+<i class="ri-checkbox-circle-line mr-1"></i>予約可能
+</div>
+<div class="text-xs text-gray-400">残り 62席</div>
+</div>
+</div>
+<p class="text-gray-300 mb-4">テクノロジーとアートの境界を探る実験的なイベント。最新のインタラクティブアート体験と未来のエンターテインメントをお楽しみください。</p>
+<div class="flex gap-3">
+<button class="bg-primary text-gray-900 px-6 py-2 !rounded-button font-semibold hover:bg-primary/90 transition-colors whitespace-nowrap">
+予約する
+</button>
+<button class="border border-primary text-primary px-6 py-2 !rounded-button font-semibold hover:bg-primary hover:text-gray-900 transition-colors whitespace-nowrap">
+詳細を見る
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="event-card bg-gray-800 rounded-xl overflow-hidden" data-category="art" data-date="2024-12-20">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 h-48 md:h-auto bg-cover bg-center" style="background-image: url('/images/Image02_04.png')"></div>
+<div class="md:w-2/3 p-6">
+<div class="flex items-start justify-between mb-4">
+<div>
+<div class="text-purple-400 text-sm font-semibold mb-1">12月 20日 (水) 19:00 - 24:00</div>
+<h3 class="text-2xl font-bold mb-2">DIGITAL DREAMS 展覧会</h3>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-purple-500 text-white rounded-full">アート</span>
+<span class="px-2 py-1 text-xs bg-gray-700 rounded-full">¥2,200</span>
+</div>
+</div>
+<div class="text-right">
+<div class="booking-status available text-sm font-semibold mb-1">
+<i class="ri-checkbox-circle-line mr-1"></i>予約可能
+</div>
+<div class="text-xs text-gray-400">残り 38席</div>
+</div>
+</div>
+<p class="text-gray-300 mb-4">現代デジタルアートの最前線を体験できる特別展覧会。国内外のアーティストによる革新的な作品群をご覧いただけます。</p>
+<div class="flex gap-3">
+<button class="bg-primary text-gray-900 px-6 py-2 !rounded-button font-semibold hover:bg-primary/90 transition-colors whitespace-nowrap">
+予約する
+</button>
+<button class="border border-primary text-primary px-6 py-2 !rounded-button font-semibold hover:bg-primary hover:text-gray-900 transition-colors whitespace-nowrap">
+詳細を見る
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="event-card bg-gray-800 rounded-xl overflow-hidden" data-category="collaboration" data-date="2024-12-22">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/3 h-48 md:h-auto bg-cover bg-center" style="background-image: url('/images/Image02_05.png')"></div>
+<div class="md:w-2/3 p-6">
+<div class="flex items-start justify-between mb-4">
+<div>
+<div class="text-yellow-400 text-sm font-semibold mb-1">12月 22日 (金) 20:30 - 04:00</div>
+<h3 class="text-2xl font-bold mb-2">CROSS CULTURE NIGHT</h3>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-1 text-xs bg-yellow-500 text-gray-900 rounded-full">コラボ</span>
+<span class="px-2 py-1 text-xs bg-gray-700 rounded-full">¥3,800</span>
+</div>
+</div>
+<div class="text-right">
+<div class="booking-status full text-sm font-semibold mb-1">
+<i class="ri-close-circle-line mr-1"></i>満席
+</div>
+<div class="text-xs text-gray-400">キャンセル待ち</div>
+</div>
+</div>
+<p class="text-gray-300 mb-4">音楽、アート、ファッションが一夜で融合する特別なコラボレーションイベント。異なる分野のクリエイターが共演します。</p>
+<div class="flex gap-3">
+<button class="bg-gray-600 text-gray-400 px-6 py-2 !rounded-button font-semibold cursor-not-allowed whitespace-nowrap" disabled>
+満席
+</button>
+<button class="border border-primary text-primary px-6 py-2 !rounded-button font-semibold hover:bg-primary hover:text-gray-900 transition-colors whitespace-nowrap">
+詳細を見る
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 px-6 bg-gray-800">
+<div class="max-w-7xl mx-auto">
+<div class="mb-8">
+<div class="flex justify-center mb-6">
+<div class="bg-gray-700 p-1 rounded-lg flex">
+<button class="tab-button px-6 py-2 !rounded-button font-semibold whitespace-nowrap" data-tab="past">過去のイベント</button>
+<button class="tab-button px-6 py-2 !rounded-button font-semibold whitespace-nowrap" data-tab="upcoming">今後のイベント</button>
+</div>
+</div>
+</div>
+<div id="upcoming-events" class="tab-content">
+<h3 class="text-2xl font-bold mb-6 text-center">今後の注目イベント</h3>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-gray-900 rounded-xl overflow-hidden">
+<div class="h-32 bg-cover bg-center" style="background-image: url('/images/Image02_06.png')"></div>
+<div class="p-4">
+<div class="text-primary text-sm mb-1">12月 31日 (日)</div>
+<h4 class="font-bold mb-2">NEW YEAR COUNTDOWN</h4>
+<div class="flex items-center justify-between text-sm">
+<span class="text-gray-400">¥8,000</span>
+<span class="text-yellow-400">早期予約中</span>
+</div>
+</div>
+</div>
+<div class="bg-gray-900 rounded-xl overflow-hidden">
+<div class="h-32 bg-cover bg-center" style="background-image: url('/images/Image02_07.png')"></div>
+<div class="p-4">
+<div class="text-secondary text-sm mb-1">1月 15日 (月)</div>
+<h4 class="font-bold mb-2">MARTIN GARRIX LIVE</h4>
+<div class="flex items-center justify-between text-sm">
+<span class="text-gray-400">¥12,000</span>
+<span class="text-yellow-400">チケット発売中</span>
+</div>
+</div>
+</div>
+<div class="bg-gray-900 rounded-xl overflow-hidden">
+<div class="h-32 bg-cover bg-center" style="background-image: url('/images/Image02_08.png')"></div>
+<div class="p-4">
+<div class="text-red-400 text-sm mb-1">2月 14日 (金)</div>
+<h4 class="font-bold mb-2">VALENTINE SPECIAL</h4>
+<div class="flex items-center justify-between text-sm">
+<span class="text-gray-400">¥4,500</span>
+<span class="text-yellow-400">企画中</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-black py-16 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid md:grid-cols-4 gap-8 mb-12">
+<div>
+<div class="font-['Pacifico'] text-2xl text-primary mb-4">SYNC</div>
+<p class="text-gray-400 mb-6">多様なカルチャーがシンクロする実験的空間</p>
+<div class="flex gap-4">
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-instagram-line"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-twitter-x-line"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-gray-900 transition-colors cursor-pointer">
+<i class="ri-facebook-line"></i>
+</div>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">ナビゲーション</h4>
+<div class="space-y-2">
+<a href="index.html" data-readdy="true" class="block text-gray-400 hover:text-primary transition-colors">Home</a>
+<a href="schedule.html" class="block text-primary">Schedule</a>
+<a href="menu.html" data-readdy="true" class="block text-gray-400 hover:text-primary transition-colors">Menu</a>
+<a href="access.html" class="block text-gray-400 hover:text-primary transition-colors">Access</a>
+<a href="contact.html" class="block text-gray-400 hover:text-primary transition-colors">Contact</a>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">営業時間</h4>
+<div class="space-y-2 text-gray-400">
+<p>金曜日: 21:00 - 05:00</p>
+<p>土曜日: 21:00 - 05:00</p>
+<p>日曜日: 20:00 - 02:00</p>
+<p class="text-sm mt-4">月〜木曜日は貸切営業</p>
+</div>
+</div>
+<div>
+<h4 class="font-semibold mb-4">アクセス</h4>
+<div class="space-y-2 text-gray-400">
+<p>〒150-0043</p>
+<p>東京都渋谷区道玄坂 2-10-12</p>
+<p>新大宗ビル B1F</p>
+<p class="text-sm mt-4">JR 渋谷駅徒歩 5分</p>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+<p>&copy; 2024 SYNC. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script id="mobile-menu-script">
+document.addEventListener('DOMContentLoaded', function() {
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuBtn.addEventListener('click', function() {
+mobileMenu.classList.toggle('hidden');
+});
+});
+</script>
+<script id="calendar-script">
+document.addEventListener('DOMContentLoaded', function() {
+const calendarGrid = document.getElementById('calendar-grid');
+const prevMonthBtn = document.getElementById('prev-month');
+const nextMonthBtn = document.getElementById('next-month');
+let currentDate = new Date(2024, 11, 1);
+const eventDates = [15, 16, 17, 20, 22, 25, 28, 31];
+function generateCalendar(year, month) {
+const firstDay = new Date(year, month, 1);
+const lastDay = new Date(year, month + 1, 0);
+const startDate = new Date(firstDay);
+startDate.setDate(startDate.getDate() - firstDay.getDay());
+calendarGrid.innerHTML = '';
+for (let i = 0; i < 42; i++) {
+const currentDay = new Date(startDate);
+currentDay.setDate(startDate.getDate() + i);
+const dayElement = document.createElement('div');
+dayElement.className = 'calendar-day w-8 h-8 flex items-center justify-center text-sm rounded-lg cursor-pointer';
+dayElement.textContent = currentDay.getDate();
+if (currentDay.getMonth() !== month) {
+dayElement.classList.add('text-gray-600');
+} else {
+dayElement.classList.add('text-white');
+if (eventDates.includes(currentDay.getDate())) {
+dayElement.classList.add('has-event');
+}
+}
+dayElement.addEventListener('click', function() {
+document.querySelectorAll('.calendar-day').forEach(day => day.classList.remove('selected'));
+dayElement.classList.add('selected');
+});
+calendarGrid.appendChild(dayElement);
+}
+}
+prevMonthBtn.addEventListener('click', function() {
+currentDate.setMonth(currentDate.getMonth() - 1);
+generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+});
+nextMonthBtn.addEventListener('click', function() {
+currentDate.setMonth(currentDate.getMonth() + 1);
+generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+});
+generateCalendar(2024, 11);
+});
+</script>
+<script id="filter-script">
+document.addEventListener('DOMContentLoaded', function() {
+const filterChips = document.querySelectorAll('.filter-chip');
+const eventCards = document.querySelectorAll('.event-card');
+filterChips.forEach(chip => {
+chip.addEventListener('click', function() {
+filterChips.forEach(c => c.classList.remove('active'));
+this.classList.add('active');
+const category = this.dataset.category;
+eventCards.forEach(card => {
+if (category === 'all' || card.dataset.category === category) {
+card.style.display = 'block';
+} else {
+card.style.display = 'none';
+}
+});
+});
+});
+filterChips[0].classList.add('active');
+});
+</script>
+<script id="tabs-script">
+document.addEventListener('DOMContentLoaded', function() {
+const tabButtons = document.querySelectorAll('.tab-button');
+const tabContents = document.querySelectorAll('.tab-content');
+tabButtons.forEach(button => {
+button.addEventListener('click', function() {
+tabButtons.forEach(btn => btn.classList.remove('active'));
+this.classList.add('active');
+const targetTab = this.dataset.tab;
+tabContents.forEach(content => {
+if (content.id === targetTab + '-events') {
+content.classList.remove('hidden');
+} else {
+content.classList.add('hidden');
+}
+});
+});
+});
+tabButtons[1].classList.add('active');
+});
+</script>
+</body>
+</html>
